@@ -58,3 +58,9 @@ fun split-by(s: string, pred: (char) -> bool): list<string>
           then loop(sl'.pretend-decreasing, 0, acc ++ ctx Cons(sl'.advance(0 - numchars).truncate.extend(numchars).string, _))
           else loop(sl'.pretend-decreasing, numchars + 1, acc)
   loop(s.slice, 0, ctx _)
+
+pub fun set( ^v : vector<a>, ^index : int, value : a ) : maybe<vector<a>>
+  if index < 0 || index >= v.length then
+    Nothing
+  else
+    Just( vector-init( v.length ) fn (i) if i == index then value else v.at(i).maybe(value, fn (x) x))
